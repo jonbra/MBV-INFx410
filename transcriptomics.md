@@ -57,4 +57,10 @@ done
 
 ## Counting
 
+`module load python2`
 
+```
+samtools sort -T tmp -n ../Mapping/aboral-1_R1_val_1.fq.gz/accepted_hits.bam -o aboral-1_sorted.bam
+
+python -m HTSeq.scripts.count -f bam -r name -s reverse -t mRNA -i ID aboral-1_sorted.bam ../genome_transcriptome/ML2.2.nogene.gff3 > aboral-1_counts.txt
+```
