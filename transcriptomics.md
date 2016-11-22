@@ -7,21 +7,20 @@ Download the genome and gene annotation: `wget `
 Uncompress: `tar -xvf `
 
 ## Quality check
-module load fastqc
+`module load fastqc`
 
-fastqc * # ca. 3 min. Gjøre dette på Desktopen - ser html-filene direkte
+`fastqc *` # ca. 3 min. Gjøre dette på Desktopen - ser html-filene direkte
 
 Most sequences are of really high quality. Some needs a little trimming at the end. 
 
-module load trim-galore/0.3.3
 
-# Trim galore
+# Trimming sequences with Trim galore
 [Trim Galore](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/)
 Default phred 20. Uses standard illumina sequence adapters. No singletons are kept. Runs fastqc on the trimmed reads.
 
 Running the file like: `bash trim_galore.sh`
 
-``
+```
 #!/bin/bash
 module load trim-galore/0.3.3 # load the program
 
@@ -35,9 +34,9 @@ do
 done
 ```
 
-19:42 - 20:00: 18 min totalt
+ca. 18 min totalt
 
-## Mapping (4:30 per prøve => litt over halvtime)
+## Mapping (4:30 per sample => little more than 30 min)
 
 ```
 #!/bin/bash
