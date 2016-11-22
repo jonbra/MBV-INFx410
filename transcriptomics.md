@@ -57,7 +57,7 @@ done
 
 ## Counting
 
-`module load python2`
+`module load python2` You need to install HTSeq scripts under your user account.
 
 ```
 samtools sort -T tmp -n ../Mapping/aboral-1_R1_val_1.fq.gz/accepted_hits.bam -o aboral-1_sorted.bam
