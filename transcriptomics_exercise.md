@@ -3,7 +3,7 @@ Log onto Abel and create a directory called `transcriptomics`
 
 ## Get data
 
-Download _one_ of the fastq-files (they come in pairs)
+Download _one_ of the fastq-files (they come in pairs) from [here](http://folk.uio.no/jonbra/)
 
 `wget http://folk.uio.no/jonbra/aboral-1_R1.fastq.gz`
 `wget http://folk.uio.no/jonbra/aboral-1_R2.fastq.gz`
