@@ -1,5 +1,5 @@
 
-First create a directory called `transcriptomics`
+Log onto Abel and create a directory called `transcriptomics`
 
 ## Get data
 
