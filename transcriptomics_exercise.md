@@ -5,8 +5,10 @@ Log onto Abel and create a directory called `transcriptomics`
 
 Download _one_ of the fastq-samples (they come in pairs, forward and reverse) from [here](http://folk.uio.no/jonbra/)
 
-`wget http://folk.uio.no/jonbra/aboral-1_R1.fastq.gz`  
-`wget http://folk.uio.no/jonbra/aboral-1_R2.fastq.gz`
+```
+wget http://folk.uio.no/jonbra/aboral-1_R1.fastq.gz  
+wget http://folk.uio.no/jonbra/aboral-1_R2.fastq.gz
+```
 
 Download also this file:
 
