@@ -35,7 +35,6 @@ trim_galore --fastqc -o outfolder --paired R1-file R2-file
 Run fastqc again on the trimmed files and see the changes
 
 ## Mapping
-
 ```
 module load tophat/2.1.1
 module load bowtie2/2.2.9
