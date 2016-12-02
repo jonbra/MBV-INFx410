@@ -22,7 +22,7 @@ Unpack it
 `module load fastqc`
 `fastqc *.gz`
 
-Download the `.html` files to your local computer
+Download the .html files to your local computer
 
 ## Trimming
 
