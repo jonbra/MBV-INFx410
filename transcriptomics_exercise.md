@@ -47,10 +47,7 @@ tophat -G /genome_transcriptome/ML2.2.nogene.gff3 -p 8 --library-type fr-firstst
 
 Sort the mapping file
 
-```
-module load samtools
-samtools sort -O bam -T tmp -n mapping/accepted_hits.bam -o mapping/accepted_hits_sorted.bam
-```
+`samtools sort -O bam -T tmp -n mapping/accepted_hits.bam -o mapping/accepted_hits_sorted.bam`
 
 Install and run HTSeq
 
