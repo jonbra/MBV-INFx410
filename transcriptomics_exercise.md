@@ -15,7 +15,7 @@ Download also this file:
 `wget http://folk.uio.no/jonbra/genome_transcriptome.tar`
 
 Unpack it
-`tar -xvf genome_transcriptome.tar
+`tar -xvf genome_transcriptome.tar`  
 
 ## Quality check
 
