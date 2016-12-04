@@ -37,7 +37,7 @@ We trim the reads using [Trim Galore](http://www.bioinformatics.babraham.ac.uk/p
 ```
 module load trim-galore/0.3.3
 
-trim_galore --fastqc -o trimmed_reads --paired R1-file R2-file
+trim_galore --fastqc --paired R1-file R2-file
 ```
 
 Download the fastqc reports of the trimmed reads.
