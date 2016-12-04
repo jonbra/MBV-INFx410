@@ -2,7 +2,7 @@
 # Do this first
 First log onto Freebee and create a directory called `transcriptomics` and go inside it.
 
-# Exercise 1 - Quality assessement
+# Exercise 1 - Quality assessment
 
 ## Get data
 
@@ -18,7 +18,7 @@ Download also this file:
 
 `wget http://folk.uio.no/jonbra/genome_transcriptome.tar`
 
-Unpack it
+and unpack it with:
 `tar -xvf genome_transcriptome.tar`  
 
 ## Quality check  
