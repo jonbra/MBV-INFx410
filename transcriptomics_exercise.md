@@ -1,6 +1,8 @@
 
-## Log on to Freebee
-Log onto Freebee and create a directory called `transcriptomics`
+# Do this first
+First log onto Freebee and create a directory called `transcriptomics` and go inside it.
+
+# Exercise 1 - Quality assessement
 
 ## Get data
 
@@ -39,7 +41,7 @@ trim_galore --fastqc -o outfolder --paired R1-file R2-file
 
 Run FastQC again on the trimmed files and see the changes
 
-## Mapping  
+# Exercise 2 - Mapping  
 We use TopHat2 to map the trimmed reads to the genome. We also include the published gene annotation to obtain gene counts of the original genes and to potentially discover new genes:  
 
 ```
@@ -50,7 +52,7 @@ module load samtools/1.3.1
 tophat -G /genome_transcriptome/ML2.2.nogene.gff3 -p 8 --library-type fr-firststrand -o mapping /genome_transcriptome/Ml_genome trimmed_R1_file trimmed_R2_file
 ```
 
-## Counting gene expression
+# Exercise 3 - Counting gene expression
 
 First, sort the mapping file:
 
