@@ -31,7 +31,8 @@ fastqc *.gz
 
 Download the .html files to your local computer
 
-## Trimming
+## Trimming  
+We trim the reads using [Trim Galore](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/). Default settings is to trim nucleotides lower than phred score 20 and looks for standard Illumina sequencing adapters. The option `--fastqc` tells it to run FastQC on the trimmed reads. The job takes 2-3 min.
 
 ```
 module load trim-galore/0.3.3
@@ -39,15 +40,15 @@ module load trim-galore/0.3.3
 trim_galore --fastqc -o outfolder --paired R1-file R2-file
 ```
 
-Run FastQC again on the trimmed files and see the changes
+Download the fastqc reports of the trimmed reads.
 
 # Exercise 2 - Mapping  
-We use TopHat2 to map the trimmed reads to the genome. We also include the published gene annotation to obtain gene counts of the original genes and to potentially discover new genes:  
+We use TopHat2 to map the trimmed reads to the genome. We also include the published gene annotation to obtain gene counts of the original genes and to potentially discover new genes. The mapping takes about 4:30 min. Run the following commands:  
 
 ```
 module load tophat/2.1.1
-module load bowtie2/2.2.9
-module load samtools/1.3.1
+module load bowtie2/2.2.9 # bowtie2 is the actual mapper
+module load samtools/1.3.1 # needed to process files
 
 tophat -G /genome_transcriptome/ML2.2.nogene.gff3 -p 8 --library-type fr-firststrand -o mapping /genome_transcriptome/Ml_genome trimmed_R1_file trimmed_R2_file
 ```
