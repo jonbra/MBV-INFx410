@@ -4,7 +4,7 @@ First log onto Freebee and create a directory called `transcriptomics` and go in
 
 # Exercise 1 - Quality assessment of sequence data
 
-## Get data
+### Get data
 
 Download _one_ of the fastq-samples (they come in pairs, forward and reverse) from [here](http://folk.uio.no/jonbra/MBV-INF4410_2017/Transcriptomics/)  
 For example:
@@ -29,7 +29,7 @@ Another way to do this is to count the number of `@` characters in each file, be
 zcat aboral-1_R1.fastq.gz | grep -c "^@"
 ```
 
-`grep´ is a very useful command used to extract lines of files matching different patterns and do stuff with these lines. Such as in this case count the nuber of lines beginning with @.
+`grep` is a very useful command used to extract lines of files matching different patterns and do stuff with these lines. Such as in this case count the nuber of lines beginning with @.
 
 But we should also check that the sequences come in the same order in the two files, i. e. that sequences from the same pair are at the same place: 
 
@@ -63,11 +63,12 @@ zcat aboral-1_R2.fastq.gz | grep "^@" | head
 # @NS500336:69:H5KLLAFXX:1:11101:8956:1056 2:N:0:CGCTCATT+NTTCGCCT
 # @NS500336:69:H5KLLAFXX:1:11101:20748:1057 2:N:0:CGCTCATT+NTTCGCCT
 ```
+What does these commands do?
 
 Notice that the names of each read are the same in both files, except the number "1" or "2" which indicates the first and second read of each pair. We didn't check all the sequences, but I'm pretty confident that these files are ok!  
 
 
-## Quality check  
+### Quality check  
 To inspect the reads and visualize the quality, run FastQC:  
 
 ```
@@ -75,28 +76,38 @@ module load fastqc
 fastqc *.gz
 ```  
 
-Download the `.html` files to your local computer and look at them in a web browser.
+Download the `.html` files to your local computer and look at them in a web browser.  
+- How long are the reads?
+- How does the quality look like? Are there any differences in the quality score between the R1 and the R2 files?
+- Are there any leftover sequencing adapters?
 
-## Trimming  
-We trim the reads using [Trim Galore](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/). Default settings is to trim nucleotides lower than phred score 20 and looks for standard Illumina sequencing adapters. The option `--fastqc` tells it to run FastQC on the trimmed reads. The job takes 5-6 min.
+### Trimming  
+We trim the reads using [Trim Galore](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/). Default settings is to trim nucleotides lower than phred score 20 and looks for standard Illumina sequencing adapters. The option `--paired` tells the program to expect two files of paired reads, and `--fastqc` tells it to run FastQC on the trimmed reads. The job takes a couple of minutes.
 
 ```
-module load trim-galore/0.3.3
+# First we check which versions of the program are available on Abel
+module avail trim-galore
+
+# We use the latest version
+module load trim-galore/0.4.4
 
 trim_galore --fastqc --paired R1-file R2-file
 ```
+Inspect the trimming reports in the terminal (remember how to view files in Unix?).  
+- Were any reads trimmed? 
+- Were there any reads with sequencing adapters?  
 
-Download the fastqc reports of the trimmed reads.
+Download the fastqc reports of the trimmed reads and look at them in the browser. Notice any differences compared to the untrimmed reads?
 
 # Exercise 2 - Mapping  
-Download this file which contains the _Mnemiopsis leidyi_ genome and transcriptome (in addition to a few index files which we'll need later:
+Now we are ready to map the reads to the genome and count the gene expression. Download this file which contains the _Mnemiopsis leidyi_ genome and transcriptome (in addition to a few index files which we'll need later:
 
 `wget http://folk.uio.no/jonbra/MBV-INF4410_2017/Transcriptomics/genome_transcriptome.tar`
 
 and unpack it with:
 `tar -xvf genome_transcriptome.tar`  
 
-We use TopHat2 to map the trimmed reads to the genome. We also include the published gene annotation to obtain gene counts of the original genes and to potentially discover new genes. The mapping takes about 17 min, so do this before you go to lunch. Run the following commands:  
+We use TopHat2 to map the trimmed reads to the genome. We also include the published transcriptome (or gene annotation in this case - a file which states where each gene starts and stops) to obtain gene counts of the original genes and to potentially discover new genes of some reads map to non-annotated regions. The mapping takes about 17 min so you can take a break (but   check the first few minutes that there are no error reports). Run the following commands:  
 
 ```
 module load tophat/2.1.1
