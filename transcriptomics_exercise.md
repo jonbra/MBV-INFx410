@@ -4,10 +4,8 @@
 [Exercise 3](#3)  
 
 
-### Do this first
-First log onto Freebee and create a directory called `transcriptomics` and go inside it.
-
 ## Exercise 1 - Quality assessment of sequence data <a name="1"></a>
+First log onto Freebee and create a directory called `transcriptomics` and go inside it.
 
 ### Get data
 
