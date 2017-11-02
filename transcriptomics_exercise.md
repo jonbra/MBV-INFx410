@@ -122,6 +122,9 @@ tophat -G genome_transcriptome/ML2.2.nogene.gff3 -p 8 --library-type fr-firststr
 ```
   
 ### Inspecting the .bam file in IGV
+Download the accepted_hits.bam, genome and gff3 file
+Sort the bam-file in IGV, then make an index
+
 
 [Top](#contents)
 # Exercise 3 - Counting gene expression <a name="3"></a>
