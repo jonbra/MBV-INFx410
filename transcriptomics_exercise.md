@@ -111,7 +111,7 @@ Now we are ready to map the reads to the genome and count the gene expression. D
 and unpack it with:
 `tar -xvf genome_transcriptome.tar`  
 
-We use TopHat2 to map the trimmed reads to the genome. We also include the published transcriptome (or gene annotation in this case - a file which states where each gene starts and stops) to obtain gene counts of the original genes and to potentially discover new genes of some reads map to non-annotated regions. The mapping takes about 17 min so you can take a break (but   check the first few minutes that there are no error reports). Run the following commands:  
+We use TopHat2 to map the trimmed reads to the genome. We also include the published transcriptome (or gene annotation in this case - a file which states where each gene starts and stops) to obtain gene counts of the original genes and to potentially discover new genes of some reads map to non-annotated regions. The mapping takes about 10 min so you can take a break (but check the first minute that there are no errors!). Run the following commands:  
 
 ```
 module load tophat/2.1.1
@@ -120,6 +120,9 @@ module load samtools/1.3.1 # needed to process files
 
 tophat -G genome_transcriptome/ML2.2.nogene.gff3 -p 8 --library-type fr-firststrand genome_transcriptome/Ml_genome trimmed_R1_file trimmed_R2_file &
 ```
+  
+### Inspecting the .bam file in IGV
+
 [Top](#contents)
 # Exercise 3 - Counting gene expression <a name="3"></a>
 
