@@ -1,8 +1,13 @@
+# Contents
+- [Exercise 1](#Exercise-1)
+- [Exercise 2](#Exercise-2)  
+- [Exercise 3](#Exercise-3)
 
-# Do this first
+
+### Do this first
 First log onto Freebee and create a directory called `transcriptomics` and go inside it.
 
-# Exercise 1 - Quality assessment of sequence data
+## Exercise 1 - Quality assessment of sequence data
 
 ### Get data
 
@@ -99,6 +104,7 @@ Inspect the trimming reports in the terminal (remember how to view files in Unix
 
 Download the fastqc reports of the trimmed reads and look at them in the browser. Notice any differences compared to the untrimmed reads?
 
+[Top](#contents)
 # Exercise 2 - Mapping  
 Now we are ready to map the reads to the genome and count the gene expression. Download this file which contains the _Mnemiopsis leidyi_ genome and transcriptome (in addition to a few index files which we'll need later:
 
@@ -116,7 +122,7 @@ module load samtools/1.3.1 # needed to process files
 
 tophat -G genome_transcriptome/ML2.2.nogene.gff3 -p 8 --library-type fr-firststrand genome_transcriptome/Ml_genome trimmed_R1_file trimmed_R2_file &
 ```
-
+[Top](#contents)
 # Exercise 3 - Counting gene expression
 
 First, sort the mapping file (remember to load samtools if you haven't):
