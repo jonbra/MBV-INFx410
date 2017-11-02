@@ -6,17 +6,17 @@ First log onto Freebee and create a directory called `transcriptomics` and go in
 
 ## Get data
 
-Download _one_ of the fastq-samples (they come in pairs, forward and reverse) from [here](http://folk.uio.no/jonbra/)  
+Download _one_ of the fastq-samples (they come in pairs, forward and reverse) from [here](http://folk.uio.no/jonbra/MBV-INF4410_2017/Transcriptomics/)  
 For example:
 
 ```
-wget http://folk.uio.no/jonbra/aboral-1_R1.fastq.gz  
-wget http://folk.uio.no/jonbra/aboral-1_R2.fastq.gz
+wget http://folk.uio.no/jonbra/MBV-INF4410_2017/Transcriptomics/aboral-1_R1.fastq.gz  
+wget http://folk.uio.no/jonbra/MBV-INF4410_2017/Transcriptomics/aboral-1_R2.fastq.gz
 ```
 
 Download also this file:
 
-`wget http://folk.uio.no/jonbra/genome_transcriptome.tar`
+`wget http://folk.uio.no/jonbra/MBV-INF4410_2017/Transcriptomics/genome_transcriptome.tar`
 
 and unpack it with:
 `tar -xvf genome_transcriptome.tar`  
@@ -29,7 +29,7 @@ module load fastqc
 fastqc *.gz
 ```  
 
-Download the .html files to your local computer
+Download the `.html` files to your local computer and look at them in a web browser.
 
 ## Trimming  
 We trim the reads using [Trim Galore](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/). Default settings is to trim nucleotides lower than phred score 20 and looks for standard Illumina sequencing adapters. The option `--fastqc` tells it to run FastQC on the trimmed reads. The job takes 5-6 min.
