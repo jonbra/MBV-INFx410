@@ -111,8 +111,10 @@ Now we are ready to map the reads to the genome and count the gene expression. D
 and unpack it with:
 `tar -xvf genome_transcriptome.tar`  
 
-We use TopHat2 to map the trimmed reads to the genome. Tophat first tries to map the entire read to the genome. Then, for the reads that do not map it splits them into shorter pieces and tries to map those. In this way, reads which spans introns can be mapped. This will also generate information about how where exons and introns are and if any transcripts are alternatively spliced. 
-![Tophat allows for mapping spliced reads](hhttps://github.com/jonbra/MBV-INFx410/blob/master/Tophat.png)
+We use TopHat2 to map the trimmed reads to the genome. Tophat first tries to map the entire read to the genome. Then, for the reads that do not map it splits them into shorter pieces and tries to map those. In this way, reads which spans introns can be mapped. This will also generate information about how where exons and introns are and if any transcripts are alternatively spliced.   
+
+![Tophat allows for mapping spliced reads](images/Tophat.png)  
+
 The mapping takes about 10 min so you can take a break (but check the first minute that there are no errors!). Run the following commands:  
 
 ```
@@ -124,18 +126,21 @@ tophat -G genome_transcriptome/ML2.2.nogene.gff3 -p 8 --library-type fr-firststr
 ```
   
 ### Inspecting the .bam file in IGV
-Download the accepted_hits.bam, genome and gff3 file
-Sort the bam-file in IGV, then make an index
+Download `accepted_hits.bam`, `MlScaffold09.nt` (the genome) and `ML2.2.nogene.gff3` (the gene annotation) to your local computer. First load the genome into IGV. Use IGVTools (Tools -> Run igvtools) to first sort the `.bam file` (Command sort) and then index the sorted file (Command Index).
+
+Play around a little in IGV. Do you see the mapped reads? Do you see any spliced reads? Does the read mapping match the annotated exons? It is always useful to inspect mapping files in IGV to get a feel for the data. 
 
 
 [Top](#contents)
 # Exercise 3 - Counting gene expression <a name="3"></a>
 
-First, sort the mapping file (remember to load samtools if you haven't):
+Now we need to count the expression of each gene in the annotation file. First, we will sort the mapping file again (same as we did in IGV, but on Freebee this time). Remember to load samtools if you haven't:
 
 `samtools sort -O bam -T tmp -n tophat_out/accepted_hits.bam -o tophat_out/accepted_hits_sorted.bam` (takes 1-2 min).
 
-Install and run HTSeq
+We use a program called HTSeq to do the counting. In the default mode (union) it counts a read if it fully, or partially, overlaps an annotated region.   
+
+![htseq-count](images/htseq-count.png)  
 
 ```
 module load python2
@@ -143,10 +148,29 @@ pip install --user HTSeq
 
 python -m HTSeq.scripts.count -f bam -r name -s reverse -t mRNA -i ID tophat_out/accepted_hits_sorted.bam genome_transcriptome/ML2.2.nogene.gff3 > sample-name.txt
 ```
-Takes about 5 min.  
-Try this if you get an error
+Takes about 5 min. Here we specified that the input file is a .bam file (`-f bam`), the bam file is sorted according to the names of the reads (`-r name`), the reads are strand-specific (i. e. we know which of the DNA-strands they originate from, hence the direction of transcription (`-s reverse`. Reverse referred to the way the sequencing library was sequenced). `-t` tells which feature of the .gff3 file to be counted (you can also count individual exons or any other field), `-i` which name to be given to the feature.  
+  
+Try to type this if you get an error:
 
 ```
 unset LC_CTYPE
 unset LANG
 ```
+You should have a file which looks something like this:  
+
+```
+ML000110a	7  
+ML000111a	0
+ML000112a	0
+ML000113a	32
+ML000114a	17
+ML000115a	50
+ML000116a	33
+ML000117a	23
+ML000118a	14
+ML000119a	37
+```
+Can you find these features in IGV and see whether the counts makes sense? (a read pair is only counted as one because they come from the same RNA molecule).  
+
+Now you have processed, mapped and counted the data from a single library. To analyse gene expression in a statistically robust way you would need replicates. In those cases we usually make shell scripts which loops over many input files and runs these commands automatically. But we'll leave that for another course. We'll analyse the gene counts further using R tomorrow.  
+[Top](#contents)
