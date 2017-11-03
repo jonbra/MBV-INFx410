@@ -111,7 +111,9 @@ Now we are ready to map the reads to the genome and count the gene expression. D
 and unpack it with:
 `tar -xvf genome_transcriptome.tar`  
 
-We use TopHat2 to map the trimmed reads to the genome. Tophat first tries to map the entire read to the genome. Then, for the reads that do not map it splits them into shorter pieces and tries to map those. In this way, reads which spans introns can be mapped. This will also generate information about how where exons and introns are and if any transcripts are alternatively spliced. The mapping takes about 10 min so you can take a break (but check the first minute that there are no errors!). Run the following commands:  
+We use TopHat2 to map the trimmed reads to the genome. Tophat first tries to map the entire read to the genome. Then, for the reads that do not map it splits them into shorter pieces and tries to map those. In this way, reads which spans introns can be mapped. This will also generate information about how where exons and introns are and if any transcripts are alternatively spliced. 
+![Tophat allows for mapping spliced reads](hhttps://github.com/jonbra/MBV-INFx410/blob/master/Tophat.png)
+The mapping takes about 10 min so you can take a break (but check the first minute that there are no errors!). Run the following commands:  
 
 ```
 module load tophat/2.1.1
