@@ -104,14 +104,14 @@ Download the fastqc reports of the trimmed reads and look at them in the browser
 
 [Top](#contents)
 # Exercise 2 - Mapping  <a name="2"></a>
-Now we are ready to map the reads to the genome and count the gene expression. Download this file which contains the _Mnemiopsis leidyi_ genome and transcriptome (in addition to a few index files which we'll need later:
+Now we are ready to map the reads to the genome and count the gene expression. Download this file which contains the _Mnemiopsis leidyi_ genome and transcriptome (in addition to a few index files which we'll need later):
 
 `wget http://folk.uio.no/jonbra/MBV-INF4410_2017/Transcriptomics/genome_transcriptome.tar`
 
 and unpack it with:
 `tar -xvf genome_transcriptome.tar`  
 
-We use TopHat2 to map the trimmed reads to the genome. We also include the published transcriptome (or gene annotation in this case - a file which states where each gene starts and stops) to obtain gene counts of the original genes and to potentially discover new genes of some reads map to non-annotated regions. The mapping takes about 10 min so you can take a break (but check the first minute that there are no errors!). Run the following commands:  
+We use TopHat2 to map the trimmed reads to the genome. Tophat first tries to map the entire read to the genome. Then, for the reads that do not map it splits them into shorter pieces and tries to map those. In this way, reads which spans introns can be mapped. This will also generate information about how where exons and introns are and if any transcripts are alternatively spliced. The mapping takes about 10 min so you can take a break (but check the first minute that there are no errors!). Run the following commands:  
 
 ```
 module load tophat/2.1.1
