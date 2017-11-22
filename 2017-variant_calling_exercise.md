@@ -2,7 +2,7 @@
 
 #### Get the data
 
-Download the sequence for the human chromosome 5 in verion 37 of the human genome. Download also the paired-end Illumina sequence set in `fastq` format. We will look more into paired fastq sequences and their quality scores later in this course.
+Download the sequence for the human chromosome 5 in verion 37 of the human genome. Download also the paired-end Illumina sequence set in `fastq` format (we will look more into paired fastq sequences and their quality scores later in this course):
 
 ```
 wget http://folk.uio.no/jonbra/MBV-INF4410_2017/Variant_calling/human_g1k_v37_chr5.fasta.gz .
@@ -19,6 +19,7 @@ bwa index human_g1k_v37_chr5.fasta #takes 2-3 minutes
 ```
 
 #### Map the reads to the genome
+We first map the reads to the genome, each pair separately, and then we gather the results into a combined alignment in the `sam` format:
 
 ```
 # First map the R1 reads
@@ -27,7 +28,7 @@ bwa aln human_g1k_v37_chr5.fasta real_agilentV1_chr5.R1.fastq.gz > R1_reads.sai
 # Then R2 reads
 bwa aln human_g1k_v37_chr5.fasta real_agilentV1_chr5.R2.fastq.gz > R2_reads.sai
 
-# Report the alignment (remember the wildcards?)
+# Report the alignment (remember what the wildcard mean?)
 bwa sampe human_g1k_v37_chr5.fasta R?_reads.sai real_agilentV1_chr5.R?.fastq.gz > mapped_reads.sam
 ```
 
