@@ -1,5 +1,8 @@
 **The material and exercise is made by Tim Hughes at UiO**
 
+## Part 1 - mapping reads to the genome
+We do part 1 together, step-by-step.
+
 #### Get the data
 
 Download the sequence for the human chromosome 5 in verion 37 of the human genome. Download also the paired-end Illumina sequence set in `fastq` format (we will look more into paired fastq sequences and their quality scores later in this course):
@@ -56,8 +59,10 @@ samtools index mapped_reads_sorted.bam mapped_reads_sorted.bai
 
 Download the sorted bam file and bam index file to your local computer. Download also the tiles used for the exome capture: [http://folk.uio.no/jonbra/MBV-INF4410_2017/Variant_calling/agilent37M.chr5.b37.bed](http://folk.uio.no/jonbra/MBV-INF4410_2017/Variant_calling/agilent37M.chr5.b37.bed) and put it in the same folder.
 
-VI GJØR FRAM TIL HER SAMMEN
-## Inspect the mapping in IGV browser
+
+## Part 2 - inspect the mapping in IGV
+You can do part 2 individually
+
 * Start the IGV browser using Java Web Start (like JalView) from [here](http://software.broadinstitute.org/software/igv/download) (Launch with 750 MB).
 * Make sure you are using the correct reference, the top left pop down should contain: "Human (1kg, b37+decoy)" 
 * Then import the .bam-file: File -> Load from File...
