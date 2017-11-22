@@ -57,13 +57,13 @@ samtools sort -O BAM -o mapped_reads_sorted.bam mapped_reads.bam
 samtools index mapped_reads_sorted.bam mapped_reads_sorted.bai
 ```
 
-Download the sorted bam file and bam index file to your local computer. Download also the tiles used for the exome capture: [http://folk.uio.no/jonbra/MBV-INF4410_2017/Variant_calling/agilent37M.chr5.b37.bed](http://folk.uio.no/jonbra/MBV-INF4410_2017/Variant_calling/agilent37M.chr5.b37.bed) and put it in the same folder.
+Download the sorted bam file and bam index file to your local computer. Download also the tiles used for the exome capture experiment: [http://folk.uio.no/jonbra/MBV-INF4410_2017/Variant_calling/agilent37M.chr5.b37.bed](http://folk.uio.no/jonbra/MBV-INF4410_2017/Variant_calling/agilent37M.chr5.b37.bed) and put all files in the same folder.
 
 
 ## Part 2 - inspect the mapping in IGV
 You can do part 2 individually
 
-* Start the IGV browser using Java Web Start (like JalView) from [here](http://software.broadinstitute.org/software/igv/download) (Launch with 750 MB).
+* Start the IGV browser using Java Web Start (like JalView) from [here](http://software.broadinstitute.org/software/igv/download) (Launch with 1.2 GB).
 * Make sure you are using the correct reference, the top left pop down should contain: "Human (1kg, b37+decoy)" 
 * Then import the .bam-file: File -> Load from File...
 * Go to chromosome 5 in the drop-down menu on top which says "All". Your screen should look something like this:
