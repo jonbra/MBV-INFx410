@@ -5,7 +5,7 @@ We do part 1 together, step-by-step.
 
 #### Get the data
 
-Download the sequence for the human chromosome 5 in verion 37 of the human genome. Download also the paired-end Illumina sequence set in `fastq` format (we will look more into paired fastq sequences and their quality scores later in this course):
+Log on to Freebee, make a new directory and go into it. Download the sequence for the human chromosome 5 in verion 37 (GRCh37) of the human genome. Download also the paired-end Illumina sequence set in `fastq` format (we will look more into paired fastq sequences and their quality scores later in this course):
 
 ```
 wget http://folk.uio.no/jonbra/MBV-INF4410_2017/Variant_calling/human_g1k_v37_chr5.fasta.gz .
