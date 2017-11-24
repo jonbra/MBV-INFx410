@@ -45,8 +45,10 @@ PCUS-319-EAS487_0001:6:1:38:1703#0	163	5	35860943	60	76M	=	35861018	151	TTCCTCCC
 PCUS-319-EAS487_0001:6:1:38:692#0	83	5	35874624	60	76M	=	35874461	-239	CTGTGTGTTATGGAAAAAAAGGTGACCTTCTTCAACTAATAAAGAGGGTGATTGTGTGGGATCACGGACAGTCAGA	G?EFHCHFHDEBHHHHHFFHHEHHHHEDDHFHHHHHHGHHHHHHHHHHGDGHHHHHEGHHHHGHHHHHHHHHHHHH	XT:A:U	NM:i:0	SM:i:37	AM:i:37	X0:i:1	X1:i:0	XM:i:0	XO:i:0	XG:i:0	MD:Z:76
 ```
 
+Sam files contain a lot of information and are usually really, really big. So to save disk space it is common to convert them to a binary format (`.bam`) using a program called samtools:
+
 ```
-# We convert the SAM file to a BAM file to save space (notice the file size of the .bam file)
+# Convert the SAM file to a BAM file
 module load samtools
 samtools view -bT human_g1k_v37_chr5.fasta mapped_reads.sam > mapped_reads.bam
 
