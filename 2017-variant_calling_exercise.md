@@ -100,7 +100,7 @@ You can do part 2 individually
 * Then import the .bam-file: File -> Load from File...
 * Go to chromosome 5 in the drop-down menu on top which says "All". Your screen should look something like this:
 
-![IGV_screen_shot](IGV_1.png)
+![IGV_screen_shot](images/IGV_1.png)
 
 * Navigate to a specific location on chromosome 5 by pasting into the text box at the top of the window: 5:55,080,012-55,096,132
 * Part of a gene model should appear at the bottom of the screen.
@@ -133,7 +133,7 @@ You can do part 2 individually
 * Notice how the refined BAM file contains a slightly improved alignment: a read that contained many mismatches in the raw alignment, correctly contains a gap in the refined BAM file and no mismatches (ca. position 5:74,021,836-74,021,866).
 * Notice that this deletion is already recorded in dbSNP (see dbSNP track we loaded earlier)  
 
-![IGV_screen_shot](IGV_2.png)
+![IGV_screen_shot](images/IGV_2.png)
 
 
 #### Sessions

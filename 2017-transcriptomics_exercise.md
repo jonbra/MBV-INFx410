@@ -1,20 +1,20 @@
 # Contents
-[Exercise 1](#1)  
-[Exercise 2](#2)    
-[Exercise 3](#3)  
+[Exercise 1 - Quality assessment](#1)  
+[Exercise 2 - Mapping](#2)    
+[Exercise 3 - counting expression](#3)  
 
-
+We do these exercises together.
 ## Exercise 1 - Quality assessment of sequence data <a name="1"></a>
 First log onto Freebee and create a directory called `transcriptomics` and go inside it.
 
 ### Get data
 
-Download _one_ of the fastq-samples (they come in pairs, forward and reverse) from [here](http://folk.uio.no/jonbra/MBV-INF4410_2017/Transcriptomics/)  
+Download _one_ of the fastq-samples, either one of the aboral or one of the oral samples (NB: they come in pairs, forward and reverse) from [here](http://folk.uio.no/jonbra/MBV-INF4410_2017/Transcriptomics/Raw_data/).  
 For example:
 
 ```
-wget http://folk.uio.no/jonbra/MBV-INF4410_2017/Transcriptomics/aboral-1_R1.fastq.gz  
-wget http://folk.uio.no/jonbra/MBV-INF4410_2017/Transcriptomics/aboral-1_R2.fastq.gz
+wget http://folk.uio.no/jonbra/MBV-INF4410_2017/Transcriptomics/Raw_data/aboral-1_R1.fastq.gz  
+wget http://folk.uio.no/jonbra/MBV-INF4410_2017/Transcriptomics/Raw_data/aboral-1_R2.fastq.gz
 ```
 These are paired-end sequences (usually named R1 and R2). Most programs require that these files contains the same number of reads, and that they are sorted in the same order. Any idea how we can check this?  
 
@@ -32,9 +32,9 @@ Another way to do this is to count the number of `@` characters in each file, be
 zcat aboral-1_R1.fastq.gz | grep -c "^@"
 ```
 
-`grep` is a very useful command used to extract lines of files matching different patterns and do stuff with these lines. Such as in this case count the nuber of lines beginning with @.
+`grep` is a very useful command used to extract lines in a file based on matching different patterns and do stuff with these lines. Such as in this case count the nuber of lines beginning with `@`.
 
-But we should also check that the sequences come in the same order in the two files, i. e. that sequences from the same pair are at the same place: 
+But we should also check that the sequences come in the same order in the two files, i. e. that sequences from the same pair are at the same place:
 
 ```
 zcat aboral-1_R1.fastq.gz | grep "^@" | head
@@ -72,7 +72,7 @@ Notice that the names of each read are the same in both files, except the number
 
 
 ### Quality check  
-To inspect the reads and visualize the quality, run FastQC:  
+To inspect the reads and visualize the quality, run `FastQC`:  
 
 ```
 module load fastqc
@@ -84,8 +84,10 @@ Download the `.html` files to your local computer and look at them in a web brow
 - How does the quality look like? Are there any differences in the quality score between the R1 and the R2 files?
 - Are there any leftover sequencing adapters?
 
+![Quality](images/Qual.jpg)
+
 ### Trimming  
-We trim the reads using [Trim Galore](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/). Default settings is to trim nucleotides lower than phred score 20 and looks for standard Illumina sequencing adapters. The option `--paired` tells the program to expect two files of paired reads, and `--fastqc` tells it to run FastQC on the trimmed reads. The job takes a couple of minutes.
+We trim the reads using [Trim Galore](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/) which is availble on Abel. Default settings is to trim nucleotides lower than phred score 20 (what is the probability of a base being wrong with this score?) and looks for standard Illumina sequencing adapters. The option `--paired` tells the program to expect two files of paired reads, and `--fastqc` tells it to run FastQC on the trimmed reads. The job takes a couple of minutes.
 
 ```
 # First we check which versions of the program are available on Abel
@@ -94,11 +96,45 @@ module avail trim-galore
 # We use the latest version
 module load trim-galore/0.4.4
 
+# Then we run the program
 trim_galore --fastqc --paired R1-file R2-file
 ```
 Inspect the trimming reports in the terminal (remember how to view files in Unix?).  
-- Were any reads trimmed? 
+- Were any reads trimmed?
 - Were there any reads with sequencing adapters?  
+
+```
+SUMMARISING RUN PARAMETERS
+==========================
+Input filename: oral-1_R1.fastq.gz
+Quality Phred score cutoff: 20
+Quality encoding type selected: ASCII+33
+Adapter sequence: 'AGATCGGAAGAGC'
+Maximum trimming error rate: 0.1 (default)
+Minimum required adapter overlap (stringency): 1 bp
+Minimum required sequence length for both reads before a sequence pair gets removed: 20 bp
+Running FastQC on the data once trimming has completed
+Output file will be GZIP compressed
+
+
+cutadapt version 1.4.2
+Command line parameters: -f fastq -e 0.1 -q 20 -O 1 -a AGATCGGAAGAGC oral-1_R1.fastq.gz
+Maximum error rate: 10.00%
+   No. of adapters: 1
+   Processed reads:      1000000
+   Processed bases:     76000000 bp (76.0 Mbp)
+     Trimmed reads:       316827 (31.7%)
+   Quality-trimmed:       131980 bp (0.1 Mbp) (0.17% of total)
+     Trimmed bases:       505112 bp (0.5 Mbp) (0.66% of total)
+   Too short reads:            0 (0.0% of processed reads)
+    Too long reads:            0 (0.0% of processed reads)
+        Total time:     17.68 s
+     Time per read:      0.018 ms
+
+=== Adapter 1 ===
+
+Adapter 'AGATCGGAAGAGC', length 13, was trimmed 316827 times.
+```
 
 Download the fastqc reports of the trimmed reads and look at them in the browser. Notice any differences compared to the untrimmed reads?
 
@@ -111,7 +147,7 @@ Now we are ready to map the reads to the genome and count the gene expression. D
 and unpack it with:
 `tar -xvf genome_transcriptome.tar`  
 
-We use TopHat2 to map the trimmed reads to the genome. Tophat first tries to map the entire read to the genome. Then, for the reads that do not map it splits them into shorter pieces and tries to map those. In this way, reads which spans introns can be mapped. This will also generate information about how where exons and introns are and if any transcripts are alternatively spliced.   
+We use `TopHat2` to map the trimmed reads to the genome. TopHat uses the Bowtie mapper, but is especially designed to map spliced reads (i.e. mRNAs). First, TopHat tries to map the entire read to the genome. Then, for the reads that do not map it splits them into shorter pieces and tries to map those. In this way, reads which spans introns can be mapped. This will also generate information about how where exons and introns are and if any transcripts are alternatively spliced.   
 
 ![Tophat allows for mapping spliced reads](images/Tophat.png)  
 
@@ -123,9 +159,11 @@ module load bowtie2/2.2.9 # bowtie2 is the actual mapper
 module load samtools/1.3.1 # needed to process files
 
 tophat -G genome_transcriptome/ML2.2.nogene.gff3 -p 8 --library-type fr-firststrand genome_transcriptome/Ml_genome trimmed_R1_file trimmed_R2_file &
+
+# run tophat without arguments to see what the different options means
 ```
-  
-You should now have a file called `accepted_hits.bam` inside the `tophat_out` directory. .bam is a compressed version of the .sam format we met in the variant calling lecture. .sam files are often huge and are therefore usually compressed. `samtools` is a program designed to work on sam/bam files. Let's have a quick look at the mapping file:  
+
+You should now have a file called `accepted_hits.bam` inside the `tophat_out` directory. Remember that `.bam` is a compressed version of the `.sam` format we met in the variant calling lecture. `samtools` is a program designed to work on sam/bam files. Let's have a quick look at the mapping file:  
 
 ```
 samtools view tophat_out/accepted_hits.bam | head
@@ -144,21 +182,26 @@ NS500336:69:H5KLLAFXX:1:21104:22111:1981	153	ML0001	1272	3	76M	*	0	0	GGCTTAAAACG
 
 ```
 
-The file contains all the informatio about which reads map to which reads in the genome, how many mismathces there are, the quality of the reads, where the other paired read has mapped, etc.  
-### Inspecting the .bam file in IGV
-Download `accepted_hits.bam`, `MlScaffold09.nt` (the genome) and `ML2.2.nogene.gff3` (the gene annotation) to your local computer. First load the genome into IGV. Use IGVTools (Tools -> Run igvtools) to first sort the `.bam file` (Command sort) and then index the sorted file (Command Index).
+The file contains all the information about which reads map to which reads in the genome, how many mismatches there are, the quality of the reads, where the other paired read has mapped, etc.  
 
-Play around a little in IGV. Do you see the mapped reads? Do you see any spliced reads? Does the read mapping match the annotated exons? It is always useful to inspect mapping files in IGV to get a feel for the data. 
+### Inspecting the .bam file in IGV
+Download `accepted_hits.bam`, `MlScaffold09.nt` (the genome) and `ML2.2.nogene.gff3` (the gene annotation) to your local computer. First load the genome into IGV (Genomes -> Load Genome from File...). Then use IGVTools (Tools -> Run igvtools) to sort the `.bam file` (Command sort and Browse to find the .bam file. Just use the suggested output file) and then index the sorted file (Command Index and switch input file to the file you just sorted). Load the sorted .bam file and the .gff3 file (File -> Load from File...).
+
+Play around a little in IGV. If you go to the first scaffold (ML0001) and zoom in a little. Do you see the mapped reads? Do you see any spliced reads? Does the read mapping match the annotated exons? It is always useful to inspect mapping files in IGV to get a feel for the data.
+
+![Spliced_mapping](images/spliced_mapping.png)
 
 
 [Top](#contents)
 # Exercise 3 - Counting gene expression <a name="3"></a>
 
-Now we need to count the expression of each gene in the annotation file. First, we will sort the mapping file again (same as we did in IGV, but on Freebee this time). Remember to load samtools if you haven't:
+Now we need to count the expression of each gene in the annotation file. First, we will sort the mapping file again (same as we did in IGV, but on Freebee this time). Remember to load `samtools` if you haven't (takes 1-2 min):
 
-`samtools sort -O bam -T tmp -n tophat_out/accepted_hits.bam -o tophat_out/accepted_hits_sorted.bam` (takes 1-2 min).
+```
+samtools sort -O bam -T tmp -n tophat_out/accepted_hits.bam -o tophat_out/accepted_hits_sorted.bam
+```
 
-We use a program called HTSeq to do the counting. In the default mode (union) it counts a read if it fully, or partially, overlaps an annotated region.   
+We use a program called `HTSeq` to do the counting. In the default mode (union) it counts a read if it fully, or partially, overlaps an annotated region.   
 
 ![htseq-count](images/htseq-count.png)  
 
@@ -168,15 +211,15 @@ pip install --user HTSeq
 
 python -m HTSeq.scripts.count -f bam -r name -s reverse -t mRNA -i ID tophat_out/accepted_hits_sorted.bam genome_transcriptome/ML2.2.nogene.gff3 > sample-name.txt
 ```
-Takes about 5 min. Here we specified that the input file is a .bam file (`-f bam`), the bam file is sorted according to the names of the reads (`-r name`), the reads are strand-specific (i. e. we know which of the DNA-strands they originate from, hence the direction of transcription (`-s reverse`. Reverse referred to the way the sequencing library was sequenced). `-t` tells which feature of the .gff3 file to be counted (you can also count individual exons or any other field), `-i` which name to be given to the feature.  
-  
+I takes about 5 min. Here we specified that the input file is a .bam file (`-f bam`), the bam file is sorted according to the names of the reads (`-r name`), the reads are strand-specific (i. e. we know which of the DNA-strands they originate from, hence the direction of transcription (`-s reverse`. Reverse referred to the way the sequencing library was sequenced). `-t` tells which feature of the .gff3 file to be counted (you can also count individual exons or any other field), `-i` which name to be given to the feature.  
+
 Try to type this if you get an error:
 
 ```
 unset LC_CTYPE
 unset LANG
 ```
-You should have a file which looks something like this:  
+You should now have a file which looks something like this:  
 
 ```
 ML000110a	7  
@@ -190,7 +233,9 @@ ML000117a	23
 ML000118a	14
 ML000119a	37
 ```
-Can you find these features in IGV and see whether the counts makes sense? (a read pair is only counted as one because they come from the same RNA molecule).  
+Can you find these genes in IGV and see whether the counts makes sense (just type in the gene name in the search box)? NB: a read pair is only counted as one because they come from the same RNA molecule.  
 
-Now you have processed, mapped and counted the data from a single library. To analyse gene expression in a statistically robust way you would need replicates. In those cases we usually make shell scripts which loops over many input files and runs these commands automatically. But we'll leave that for another course. We'll analyse the gene counts further using R tomorrow.  
+![count](images/IGV_count.png)
+
+Now you have processed, mapped and counted the data from a single library. To analyse gene expression in a statistically robust way you would need replicates. In those cases we usually make shell scripts which loops over many input files and runs these commands automatically. But we'll leave that for another course. We'll analyse the gene counts further using R.  
 [Top](#contents)
