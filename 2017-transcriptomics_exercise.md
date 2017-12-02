@@ -158,7 +158,7 @@ module load tophat/2.1.1
 module load bowtie2/2.2.9 # bowtie2 is the actual mapper
 module load samtools/1.3.1 # needed to process files
 
-tophat -G genome_transcriptome/ML2.2.nogene.gff3 -p 8 --library-type fr-firststrand genome_transcriptome/Ml_genome trimmed_R1_file trimmed_R2_file &
+tophat -G genome_transcriptome/ML2.2.nogene.gff3 -p 8 --library-type fr-firststrand genome_transcriptome/Ml_genome trimmed_R1_file trimmed_R2_file
 
 # run tophat without arguments to see what the different options means
 ```
