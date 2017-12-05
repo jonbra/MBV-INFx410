@@ -210,7 +210,7 @@ Play around a little in IGV. If you go to the first scaffold (ML0001) and zoom i
 
 [Top](#contents)
 # Exercise 3 - Counting gene expression <a name="3"></a>
-
+# NB! This exercise does not work. I'll see if I can fix it
 Now we need to count the expression of each gene in the annotation file. First, we will sort the mapping file again (same as we did in IGV, but on Freebee this time). Remember to load `samtools` if you haven't (takes 1-2 min):
 
 ```
