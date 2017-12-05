@@ -115,6 +115,7 @@ But now let's just run the program:
 trim_galore --paired R1-file R2-file # NB! These are the two fastq.gz files
 ```
 
+Then run `fastqc` again on the newly trimmed reads (files ending with `_val_?.fq.gz`).  
 Inspect the trimming reports in the terminal (remember how to view files in Unix?).  
 - Were any reads trimmed?
 - Were there any reads with sequencing adapters?  
