@@ -115,7 +115,6 @@ But now let's just run the program:
 trim_galore --paired R1-file R2-file # NB! These are the two fastq.gz files
 ```
 
-Then run `fastqc` again on the newly trimmed reads (files ending with `_val_?.fq.gz`).  
 Inspect the trimming reports in the terminal (remember how to view files in Unix?).  
 - Were any reads trimmed?
 - Were there any reads with sequencing adapters?  
@@ -153,7 +152,7 @@ Maximum error rate: 10.00%
 Adapter 'AGATCGGAAGAGC', length 13, was trimmed 316827 times.
 ```
 
-Download the fastqc reports of the trimmed reads and look at them in the browser. Notice any differences compared to the untrimmed reads?
+Then run `fastqc` again on the newly trimmed reads (files ending with `_val_?.fq.gz`). Download the fastqc reports of the trimmed reads and look at them in the browser. Notice any differences compared to the untrimmed reads?
 
 [Top](#contents)
 # Exercise 2 - Mapping  <a name="2"></a>
