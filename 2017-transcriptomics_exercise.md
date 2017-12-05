@@ -75,7 +75,8 @@ Notice that the names of each read are the same in both files, except the number
 To inspect the reads and visualize the quality, run `FastQC`:  
 
 ```
-module load fastqc
+module avail fastqc # We check which versions of fastqc are available
+module load fastqc/0.11.2 # load fastqc
 fastqc *.gz
 ```  
 
@@ -87,7 +88,7 @@ Download the `.html` files to your local computer and look at them in a web brow
 ![Quality](images/Qual.jpg)
 
 ### Trimming  
-We trim the reads using [Trim Galore](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/) which is availble on Abel. Default settings is to trim nucleotides lower than phred score 20 (what is the probability of a base being wrong with this score?) and looks for standard Illumina sequencing adapters. The option `--paired` tells the program to expect two files of paired reads, and `--fastqc` tells it to run FastQC on the trimmed reads. The job takes a couple of minutes.
+We trim the reads using [Trim Galore](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/) which is availble on Abel. Default settings is to trim nucleotides lower than phred score 20 (what is the probability of a base being wrong with this score?) and looks for standard Illumina sequencing adapters. The option `--paired` tells the program to expect two files of paired reads. The job takes a couple of minutes.
 
 ```
 # First we check which versions of the program are available on Abel
@@ -95,10 +96,25 @@ module avail trim-galore
 
 # We use the latest version
 module load trim-galore/0.4.4
-
-# Then we run the program
-trim_galore --fastqc --paired R1-file R2-file
 ```
+
+It is not always easy to know how a program is run. Let's try typing `trim` and press the TAB button. The command `trim_galore` should pop up. Type `trim_galore` and press Enter:
+```
+No quality encoding type selected. Assuming that the data provided uses Sanger encoded Phred scores (default)
+
+
+Please provide the filename(s) of one or more FastQ file(s) to launch Trim Galore!
+
+USAGE:  'trim_galore [options] <filename(s)>'    or    'trim_galore --help'    for more options
+```
+The program first tries to start, but then realizes that you provided no input files. It then gives you a small Usage menu and tells you that you can run `trim_galore --help` for more information. This is very common for Unix programs. You can check out the help menu.  
+
+But now let's just run the program: 
+
+```
+trim_galore --paired R1-file R2-file
+```
+
 Inspect the trimming reports in the terminal (remember how to view files in Unix?).  
 - Were any reads trimmed?
 - Were there any reads with sequencing adapters?  
