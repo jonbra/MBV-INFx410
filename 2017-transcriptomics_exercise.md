@@ -112,7 +112,7 @@ The program first tries to start, but then realizes that you provided no input f
 But now let's just run the program: 
 
 ```
-trim_galore --paired R1-file R2-file
+trim_galore --paired R1-file R2-file # NB! These are the two fastq.gz files
 ```
 
 Inspect the trimming reports in the terminal (remember how to view files in Unix?).  
