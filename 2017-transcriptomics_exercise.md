@@ -94,8 +94,8 @@ We trim the reads using [Trim Galore](http://www.bioinformatics.babraham.ac.uk/p
 # First we check which versions of the program are available on Abel
 module avail trim-galore
 
-# We use the latest version
-module load trim-galore/0.4.4
+# We use the default version
+module load trim-galore/0.3.3
 ```
 
 It is not always easy to know how a program is run. Let's try typing `trim` and press the TAB button. The command `trim_galore` should pop up. Type `trim_galore` and press Enter:
