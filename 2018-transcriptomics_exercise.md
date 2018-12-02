@@ -236,6 +236,9 @@ Try to type this if you get an error:
 unset LC_CTYPE
 unset LANG
 ```
+
+If you still get an error you can download a sample file from [here](http://folk.uio.no/jonbra/MBV-INF4410_2018/Transcriptomics/sample-name.txt).  
+
 You should now have a file which looks something like this:  
 
 ```
