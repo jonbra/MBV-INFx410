@@ -212,7 +212,6 @@ Play around a little in IGV. If you go to the first scaffold (ML0001) and zoom i
 
 [Top](#contents)
 # Exercise 3 - Counting gene expression <a name="3"></a>
-# NB! This exercise does not work. I'll see if I can fix it
 Now we need to count the expression of each gene in the annotation file. First, we will sort the mapping file again (same as we did in IGV, but on Freebee this time). Remember to load `samtools` if you haven't (takes 1-2 min):
 
 ```
@@ -224,10 +223,10 @@ We use a program called `HTSeq` to do the counting. In the default mode (union) 
 ![htseq-count](images/htseq-count.png)  
 
 ```
-module load python2
+module load python2/2.7.10
 pip install --user HTSeq
 
-python -m HTSeq.scripts.count -f bam -r name -s reverse -t mRNA -i ID tophat_out/accepted_hits_sorted.bam genome_transcriptome/ML2.2.nogene.gff3 > sample-name.txt
+python2 -m HTSeq.scripts.count -f bam -r name -s reverse -t mRNA -i ID tophat_out/accepted_hits_sorted.bam genome_transcriptome/ML2.2.nogene.gff3 > sample-name.txt
 ```
 I takes about 5 min. Here we specified that the input file is a .bam file (`-f bam`), the bam file is sorted according to the names of the reads (`-r name`), the reads are strand-specific (i. e. we know which of the DNA-strands they originate from, hence the direction of transcription (`-s reverse`. Reverse referred to the way the sequencing library was sequenced). `-t` tells which feature of the .gff3 file to be counted (you can also count individual exons or any other field), `-i` which name to be given to the feature.  
 
