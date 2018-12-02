@@ -94,8 +94,8 @@ We trim the reads using [Trim Galore](http://www.bioinformatics.babraham.ac.uk/p
 # First we check which versions of the program are available on Abel
 module avail trim-galore
 
-# We use the default version
-module load trim-galore/0.3.3
+# We use the latest version
+module load trim-galore/0.4.4
 ```
 
 It is not always easy to know how a program is run. Let's try typing `trim` and press the TAB button. The command `trim_galore` should pop up. Type `trim_galore` and press Enter:
@@ -122,34 +122,36 @@ Inspect the trimming reports in the terminal (remember how to view files in Unix
 ```
 SUMMARISING RUN PARAMETERS
 ==========================
-Input filename: oral-1_R1.fastq.gz
+Input filename: aboral-1_R1.fastq.gz
+Trimming mode: paired-end
+Trim Galore version: 0.4.4
+Cutadapt version: 1.14
 Quality Phred score cutoff: 20
 Quality encoding type selected: ASCII+33
-Adapter sequence: 'AGATCGGAAGAGC'
+Adapter sequence: 'AGATCGGAAGAGC' (Illumina TruSeq, Sanger iPCR; auto-detected)
 Maximum trimming error rate: 0.1 (default)
 Minimum required adapter overlap (stringency): 1 bp
 Minimum required sequence length for both reads before a sequence pair gets removed: 20 bp
-Running FastQC on the data once trimming has completed
 Output file will be GZIP compressed
 
 
-cutadapt version 1.4.2
-Command line parameters: -f fastq -e 0.1 -q 20 -O 1 -a AGATCGGAAGAGC oral-1_R1.fastq.gz
-Maximum error rate: 10.00%
-   No. of adapters: 1
-   Processed reads:      1000000
-   Processed bases:     76000000 bp (76.0 Mbp)
-     Trimmed reads:       316827 (31.7%)
-   Quality-trimmed:       131980 bp (0.1 Mbp) (0.17% of total)
-     Trimmed bases:       505112 bp (0.5 Mbp) (0.66% of total)
-   Too short reads:            0 (0.0% of processed reads)
-    Too long reads:            0 (0.0% of processed reads)
-        Total time:     17.68 s
-     Time per read:      0.018 ms
+This is cutadapt 1.14 with Python 2.7.10
+Command line parameters: -f fastq -e 0.1 -q 20 -O 1 -a AGATCGGAAGAGC aboral-1_R1.fastq.gz
+Trimming 1 adapter with at most 10.0% errors in single-end mode ...
+Finished in 19.14 s (19 us/read; 3.13 M reads/minute).
 
-=== Adapter 1 ===
+=== Summary ===
 
-Adapter 'AGATCGGAAGAGC', length 13, was trimmed 316827 times.
+Total reads processed:               1,000,000
+Reads with adapters:                   313,864 (31.4%)
+Reads written (passing filters):     1,000,000 (100.0%)
+
+Total basepairs processed:    76,000,000 bp
+Quality-trimmed:                 115,054 bp (0.2%)
+Total written (filtered):     75,343,871 bp (99.1%)
+
+...
+
 ```
 
 Then run `fastqc` again on the newly trimmed reads (files ending with `_val_?.fq.gz`). Download the fastqc reports of the trimmed reads and look at them in the browser. Notice any differences compared to the untrimmed reads?
