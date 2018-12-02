@@ -109,7 +109,7 @@ USAGE:  'trim_galore [options] <filename(s)>'    or    'trim_galore --help'    f
 ```
 The program first tries to start, but then realizes that you provided no input files. It then gives you a small Usage menu and tells you that you can run `trim_galore --help` for more information. This is very common for Unix programs. You can check out the help menu.  
 
-But now let's just run the program: 
+But now let's just run the program (if you get an error, try another version of Trim galore: `module purge` and then `module load trim-galore/0.3.3`): 
 
 ```
 trim_galore --paired R1-file R2-file # NB! These are the two fastq.gz files
