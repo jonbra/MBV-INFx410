@@ -220,8 +220,10 @@ We use a program called `HTSeq` to do the counting. In the default mode (union) 
 ![htseq-count](images/htseq-count.png)  
 
 ```
+# HTSeq is written in python
 module load python3
 
+# pip is a way to automatically install python modules/programs
 pip3 install --user numpy
 pip3 install --user pysam
 pip3 install --user HTSeq
