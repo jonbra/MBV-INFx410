@@ -88,7 +88,7 @@ Download the `.html` files to your local computer and look at them in a web brow
 ![Quality](images/Qual.jpg)
 
 ### Trimming  
-We trim the reads using [Trim Galore](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/) which is available on Abel. Default settings is to trim nucleotides lower than phred score 20 (what is the probability of a base being wrong with this score?) and looks for standard Illumina sequencing adapters. The option `--paired` tells the program to expect two files of paired reads. The job takes a couple of minutes.
+We trim the reads using [Trim Galore](http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/) which is available on Abel. 
 
 ```
 # Load the program
@@ -106,7 +106,7 @@ USAGE:  'trim_galore [options] <filename(s)>'    or    'trim_galore --help'    f
 ```
 The program first tries to start, but then realizes that you provided no input files. It then gives you a small Usage menu and tells you that you can run `trim_galore --help` for more information. This is very common for Unix programs. You can check out the help menu.  
 
-But now let's just run the program: 
+But now let's just run the program. Default settings is to trim nucleotides lower than phred score 20 (what is the probability of a base being wrong with this score?) and the program looks for standard Illumina sequencing adapters. The option `--paired` tells the program to expect two files of paired reads. The job takes a couple of minutes.  
 
 ```
 trim_galore --paired R1-file R2-file # NB! These are the two fastq.gz files
@@ -209,7 +209,7 @@ Play around a little in IGV. If you go to the first scaffold (ML0001) and zoom i
 
 [Top](#contents)
 # Exercise 3 - Counting gene expression <a name="3"></a>
-Now we need to count the expression of each gene in the annotation file. First, we will sort the mapping file again (same as we did in IGV, but on Freebee this time). Remember to load `samtools` if you haven't (takes 1-2 min):
+Now we need to count the expression of each gene in the annotation file. First, we will sort the mapping file again (same as we did in IGV, but on Freebee this time). Remember to load `samtools` if you haven't. The sorting takes 1-2 min:
 
 ```
 samtools sort -O bam -T tmp -n tophat_out/accepted_hits.bam -o tophat_out/accepted_hits_sorted.bam
@@ -223,7 +223,7 @@ We use a program called `HTSeq` to do the counting. In the default mode (union) 
 # HTSeq is written in python
 module load python3
 
-# pip is a way to automatically install python modules/programs
+# pip3 is a way to automatically install python modules/programs
 pip3 install --user numpy
 pip3 install --user pysam
 pip3 install --user HTSeq
@@ -260,5 +260,5 @@ Can you find these genes in IGV and see whether the counts makes sense (just typ
 
 ![count](images/IGV_count.png)
 
-Now you have processed, mapped and counted the data from a single library. To analyse gene expression in a statistically robust way you would need replicates. In those cases we usually make shell scripts which loops over many input files and runs these commands automatically. But we'll leave that for another course. We'll analyse the gene counts further using R.  
+Now you have processed, mapped and counted the data from a single library. To analyse gene expression in a statistically robust way you would need replicates. In those cases we usually make shell scripts which loops over many input files and runs these commands automatically. But we'll leave that for another course. We'll analyse the gene counts further using R tomorrow.  
 [Top](#contents)
